@@ -5,6 +5,7 @@ import { ApiService } from './services/api.service';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { PaginatedResponse, Product } from 'src/models/product.model';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
     'description',
     'action',
   ];
-  dataSource = new MatTableDataSource<any>([]);
+  dataSource = new MatTableDataSource<Product>([]);
   totalProducts = 0;
   pageSize = 10;
   pageIndex = 0;
@@ -57,7 +58,7 @@ export class AppComponent implements OnInit {
     search: string = ''
   ) {
     this.api.getPaginatedProducts(page, size, search).subscribe({
-      next: (res) => {
+      next: (res: PaginatedResponse<Product>) => {
         this.dataSource.data = res.content;
         this.totalProducts = res.totalElements;
         this.paginator.pageIndex = res.number;
@@ -75,7 +76,7 @@ export class AppComponent implements OnInit {
     this.getPaginatedProducts(this.pageIndex, this.pageSize, this.searchValue);
   }
 
-  editProduct(row: any) {
+  editProduct(row: Product) {
     this.api.getProductById(row.id).subscribe({
       next: (product) => {
         this.dialog
