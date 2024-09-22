@@ -25,6 +25,7 @@ export class AppComponent implements OnInit {
   totalProducts = 0;
   pageSize = 10;
   pageIndex = 0;
+  searchValue: string = '';
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -32,7 +33,7 @@ export class AppComponent implements OnInit {
   constructor(private dialog: MatDialog, private api: ApiService) {}
 
   ngOnInit(): void {
-    this.getPaginatedProducts(this.pageIndex, this.pageSize);
+    this.getPaginatedProducts(this.pageIndex, this.pageSize, this.searchValue);
   }
 
   openDialog() {
@@ -41,13 +42,21 @@ export class AppComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res === 'create') {
-          this.getPaginatedProducts(this.pageIndex, this.pageSize);
+          this.getPaginatedProducts(
+            this.pageIndex,
+            this.pageSize,
+            this.searchValue
+          );
         }
       });
   }
 
-  getPaginatedProducts(page: number = 0, size: number = 10) {
-    this.api.getPaginatedProducts(page, size).subscribe({
+  getPaginatedProducts(
+    page: number = 0,
+    size: number = 10,
+    search: string = ''
+  ) {
+    this.api.getPaginatedProducts(page, size, search).subscribe({
       next: (res) => {
         this.dataSource.data = res.content;
         this.totalProducts = res.totalElements;
@@ -63,7 +72,7 @@ export class AppComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.pageIndex = event.pageIndex;
     this.pageSize = event.pageSize;
-    this.getPaginatedProducts(this.pageIndex, this.pageSize);
+    this.getPaginatedProducts(this.pageIndex, this.pageSize, this.searchValue);
   }
 
   editProduct(row: any) {
@@ -74,7 +83,11 @@ export class AppComponent implements OnInit {
           .afterClosed()
           .subscribe((res) => {
             if (res === 'update' || res === 'delete') {
-              this.getPaginatedProducts(this.pageIndex, this.pageSize);
+              this.getPaginatedProducts(
+                this.pageIndex,
+                this.pageSize,
+                this.searchValue
+              );
             }
           });
       },
@@ -88,7 +101,11 @@ export class AppComponent implements OnInit {
     this.api.deleteProduct(id).subscribe({
       next: () => {
         alert('Product deleted successfully');
-        this.getPaginatedProducts(this.pageIndex, this.pageSize);
+        this.getPaginatedProducts(
+          this.pageIndex,
+          this.pageSize,
+          this.searchValue
+        );
       },
       error: () => {
         alert('Error while deleting product');
@@ -98,10 +115,8 @@ export class AppComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
-    }
+    this.searchValue = filterValue.trim().toLowerCase();
+    this.pageIndex = 0;
+    this.getPaginatedProducts(this.pageIndex, this.pageSize, this.searchValue);
   }
 }

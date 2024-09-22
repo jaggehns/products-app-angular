@@ -18,8 +18,17 @@ export class ApiService {
     return this.http.get<any>(`${this.baseUrl}/getProducts`);
   }
 
-  getPaginatedProducts(page: number, size: number): Observable<any> {
-    const params = new HttpParams().set('page', page).set('size', size);
+  getPaginatedProducts(
+    page: number,
+    size: number,
+    search: string = ''
+  ): Observable<any> {
+    let params = new HttpParams().set('page', page).set('size', size);
+
+    if (search) {
+      params = params.set('search', search);
+    }
+
     return this.http.get<any>(`${this.baseUrl}/getAllProducts`, { params });
   }
 
