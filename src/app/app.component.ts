@@ -74,7 +74,6 @@ export class AppComponent implements OnInit {
           .afterClosed()
           .subscribe((res) => {
             if (res === 'update' || res === 'delete') {
-              // Refresh the product list after update or delete
               this.getPaginatedProducts(this.pageIndex, this.pageSize);
             }
           });

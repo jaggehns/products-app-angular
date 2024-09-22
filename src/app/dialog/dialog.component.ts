@@ -9,7 +9,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
-  // freshnessList = ['Brand New', 'Used', 'Refurbished'];
   productForm!: FormGroup;
   actionBtn: string = 'Create';
   constructor(
