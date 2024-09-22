@@ -1,0 +1,99 @@
+{
+  "content": [
+    {
+      "id": 13,
+      "name": "Product 1",
+      "quantity": 10,
+      "price": 100.0,
+      "description": "Description for Product 1"
+    },
+    {
+      "id": 14,
+      "name": "Product 2",
+      "quantity": 20,
+      "price": 200.0,
+      "description": "Description for Product 2"
+    },
+    {
+      "id": 15,
+      "name": "Product 3",
+      "quantity": 30,
+      "price": 300.0,
+      "description": "Description for Product 3"
+    },
+    {
+      "id": 16,
+      "name": "Product 4",
+      "quantity": 40,
+      "price": 400.0,
+      "description": "Description for Product 4"
+    },
+    {
+      "id": 17,
+      "name": "Product 5",
+      "quantity": 50,
+      "price": 500.0,
+      "description": "Description for Product 5"
+    },
+    {
+      "id": 18,
+      "name": "Product 6",
+      "quantity": 60,
+      "price": 600.0,
+      "description": "Description for Product 6"
+    },
+    {
+      "id": 19,
+      "name": "Product 7",
+      "quantity": 70,
+      "price": 700.0,
+      "description": "Description for Product 7"
+    },
+    {
+      "id": 20,
+      "name": "Product 8",
+      "quantity": 80,
+      "price": 800.0,
+      "description": "Description for Product 8"
+    },
+    {
+      "id": 21,
+      "name": "Product 9",
+      "quantity": 90,
+      "price": 900.0,
+      "description": "Description for Product 9"
+    },
+    {
+      "id": 22,
+      "name": "Product 10",
+      "quantity": 100,
+      "price": 1000.0,
+      "description": "Description for Product 10"
+    }
+  ],
+  "pageable": {
+    "sort": {
+      "sorted": false,
+      "unsorted": true,
+      "empty": true
+    },
+    "offset": 0,
+    "pageNumber": 0,
+    "pageSize": 10,
+    "paged": true,
+    "unpaged": false
+  },
+  "last": false,
+  "totalPages": 3,
+  "totalElements": 30,
+  "sort": {
+    "sorted": false,
+    "unsorted": true,
+    "empty": true
+  },
+  "size": 10,
+  "number": 0,
+  "first": true,
+  "numberOfElements": 10,
+  "empty": false
+}
