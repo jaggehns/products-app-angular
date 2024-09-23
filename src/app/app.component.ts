@@ -6,6 +6,8 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { PaginatedResponse, Product } from 'src/models/product.model';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -28,6 +30,8 @@ export class AppComponent implements OnInit {
   pageIndex = 0;
   searchValue: string = '';
 
+  searchSubject: Subject<string> = new Subject<string>();
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -35,6 +39,17 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPaginatedProducts(this.pageIndex, this.pageSize, this.searchValue);
+
+    this.searchSubject
+      .pipe(debounceTime(300), distinctUntilChanged())
+      .subscribe((searchTerm) => {
+        this.searchValue = searchTerm;
+        this.getPaginatedProducts(
+          this.pageIndex,
+          this.pageSize,
+          this.searchValue
+        );
+      });
   }
 
   openDialog() {
@@ -116,8 +131,6 @@ export class AppComponent implements OnInit {
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
-    this.searchValue = filterValue.trim().toLowerCase();
-    this.pageIndex = 0;
-    this.getPaginatedProducts(this.pageIndex, this.pageSize, this.searchValue);
+    this.searchSubject.next(filterValue.trim().toLowerCase());
   }
 }
