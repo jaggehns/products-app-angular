@@ -18,7 +18,7 @@ This project is a **Product Management Application** built with **Angular 13** a
 
 - **Add Products**: Users can add new products with name, price, quantity, and description.
 - **View Products**: All products are listed in a table with pagination.
-- **Search**: Users can search for products by name or ID.
+- **Search with Debouncing**: Users can search for products by name or ID, with debouncing implemented to reduce unnecessary API calls.
 - **Update Products**: Users can edit the details of existing products.
 - **Delete Products**: Users can remove products from the database.
 - **Pagination**: Large lists of products are paginated to improve performance and usability.
